@@ -3,6 +3,11 @@ namespace app\models;
 
 class Client extends \app\core\Model{
 
+	#[\app\validators\NameValidator]//definition of validators to apply on property
+	var $first_name;
+	#[\app\validators\NameValidator]
+	var $last_name;
+
 	function __construct(){
 		parent::__construct();
 	}
@@ -35,9 +40,11 @@ class Client extends \app\core\Model{
 	}
 
 	function insert(){
-		$SQL = 'INSERT INTO client(first_name,last_name,notes,phone) VALUES(:first_name,:last_name,:notes,:phone)';
-		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['first_name'=>$this->first_name,'last_name'=>$this->last_name,'notes'=>$this->notes,'phone'=>$this->phone]);
+		if($this->isValid()){//call to validation
+			$SQL = 'INSERT INTO client(first_name,last_name,notes,phone) VALUES(:first_name,:last_name,:notes,:phone)';
+			$STMT = self::$_connection->prepare($SQL);
+			$STMT->execute(['first_name'=>$this->first_name,'last_name'=>$this->last_name,'notes'=>$this->notes,'phone'=>$this->phone]);
+		}	
 	}
 
 	function update(){
