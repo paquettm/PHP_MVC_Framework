@@ -32,10 +32,10 @@ class Client extends \app\core\Controller{
 			//show the view
 			$this->view('Client/update', $client);
 		}else{
-			$newClient->first_name=$_POST['first_name'];
-			$newClient->last_name=$_POST['last_name'];
-			$newClient->notes=$_POST['notes'];
-			$newClient->phone=$_POST['phone'];
+			$client->first_name=$_POST['first_name'];
+			$client->last_name=$_POST['last_name'];
+			$client->notes=$_POST['notes'];
+			$client->phone=$_POST['phone'];
 			$client->update();
 			header('location:/Client/index');
 		}
