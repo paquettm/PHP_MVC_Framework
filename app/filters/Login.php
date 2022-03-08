@@ -4,7 +4,7 @@ namespace app\filters;
 //the framework runs execute to ensure the filtering
 
 #[\Attribute]
-class Login{
+class Login extends \app\core\AccessFilter{
 
 	function execute(){
 		if(!isset($_SESSION['user_id'])){
