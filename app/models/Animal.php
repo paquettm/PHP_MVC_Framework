@@ -13,7 +13,6 @@ class Animal extends \app\core\Model{
 		$STMT->execute(['client_id'=>$this->client_id]);
 		$STMT->setFetchMode(\PDO::FETCH_CLASS, "app\models\Client");
 		return $STMT->fetch();
-
 	}
 
 	function get($animal_id){

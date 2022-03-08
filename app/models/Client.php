@@ -3,9 +3,10 @@ namespace app\models;
 
 class Client extends \app\core\Model{
 
-	#[\app\validators\NameValidator]//definition of validators to apply on property
+	#[\app\validators\NonEmpty]//definition of validators to apply on property
+	#[\app\validators\Name]//definition of validators to apply on property
 	var $first_name;
-	#[\app\validators\NameValidator]
+	#[\app\validators\Name]
 	var $last_name;
 
 	function __construct(){
@@ -48,9 +49,11 @@ class Client extends \app\core\Model{
 	}
 
 	function update(){
-		$SQL = 'UPDATE client SET first_name = :first_name, last_name = :last_name, notes = :notes, phone = :phone WHERE client_id = :client_id';
-		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['first_name'=>$this->first_name,'last_name'=>$this->last_name,'notes'=>$this->notes,'phone'=>$this->phone,'client_id'=>$this->client_id]);
+		if($this->isValid()){//call to validation
+			$SQL = 'UPDATE client SET first_name = :first_name, last_name = :last_name, notes = :notes, phone = :phone WHERE client_id = :client_id';
+			$STMT = self::$_connection->prepare($SQL);
+			$STMT->execute(['first_name'=>$this->first_name,'last_name'=>$this->last_name,'notes'=>$this->notes,'phone'=>$this->phone,'client_id'=>$this->client_id]);
+		}
 	}
 
 	function delete($client_id){
