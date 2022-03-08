@@ -10,11 +10,8 @@ class DBConnection{
 			//fetch environment variables from .env
 			$dotenv = \Dotenv\Dotenv::createImmutable(getcwd());
 			$dotenv->load();
-			$host = $_ENV['db_host'];
-			$DBname = $_ENV['db_name'];
-			$user = $_ENV['db_user'];
-			$password = $_ENV['db_pass'];
-			self::$connection = new \PDO("mysql:host=$host;dbname=$DBname", $user, $password);
+			$dotenv->required(['db_host', 'db_name', 'db_user', 'db_pass'])->notEmpty();//all are needed and none should be empty
+			self::$connection = new \PDO("mysql:host=$_ENV[db_host];dbname=$_ENV[db_name]", $_ENV['db_user'], $_ENV['db_pass']);
 		}
 	}
 
