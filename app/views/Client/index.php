@@ -12,7 +12,7 @@
 			$this->view('shared/clock');
 		?>
 
-		<h1>All Clients</h1>
+		<h1><?= _("All Clients") ?></h1>
 		<p>This is the list of clients.</p>
 		<table>
 			<tr><th>First Name</th><th>Last Name</th><th>Notes</th><th>Phone</th><th>actions</th></tr>
