@@ -14,3 +14,12 @@ db_user="applicationDBUser"
 db_pass="applicationDBUserPassword"
 db_name="applicationDBName"
 ```
+
+##Windows extras
+
+GnuWin32 tools to find files and to extract gettext call keys are required for i18n and l10n.
+
+1. Download and install gettext tools from the main installer at http://gnuwin32.sourceforge.net/packages/gettext.htm
+2. Download and install find utilities from the main installer at http://gnuwin32.sourceforge.net/packages/findutils.htm
+
+You will then be able to run "find ./app/views -iname "*.php" -exec xgettext -j {} ;" to extract all gettext calls in views to a messages.po file in the main project folder.
