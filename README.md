@@ -15,6 +15,12 @@ db_pass="applicationDBUserPassword"
 db_name="applicationDBName"
 ```
 
+5. Localistions will only work if the locale installed on the computer matches the locale name in the folder under locale. Ours is 'en'. To know which locale you are running on your computer run
+```
+echo Locale::getDefault();
+```
+as commented in the root index.php.
+
 ##Windows extras
 
 GnuWin32 tools to find files and to extract gettext call keys are required for i18n and l10n.
