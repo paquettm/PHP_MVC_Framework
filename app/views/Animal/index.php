@@ -22,9 +22,16 @@
 		<table>
 			<tr><th><?= _('Animal Name') ?></th><th><?= _('Date of birth') ?></th><th><?= _('actions') ?></th></tr>
 		<?php 
+			global $lang;
+			$fmt = new IntlDateFormatter(	$lang, 
+											IntlDateFormatter::MEDIUM, 
+											IntlDateFormatter::NONE, 
+											'UTC', 
+											IntlDateFormatter::GREGORIAN);
 			//$data is the local name for the data passed into the view
 			foreach ($data['animals'] as $animal) {
-				echo "<tr><td>$animal->name</td><td>$animal->dob</td>
+				$date = new \DateTime($animal->dob);
+				echo "<tr><td>$animal->name</td><td>".$fmt->format($date)."</td>
 					<td>
 						<a href='/Animal/update/$animal->animal_id'>"._('update')."</a> | 
 						<a href='/Animal/delete/$animal->animal_id'>"._('delete')."</a> | 
