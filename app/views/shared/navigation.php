@@ -7,10 +7,11 @@
 		<?php }else{ ?>
 			<li><a href='/User/logout'><?= _('Log out') ?></a></li>
 		<?php } ?>
-		
-			<li><a href='?lang=fr_CA'><?= _('French') ?></a></li>
-			<li><a href='?lang=en'><?= _('English') ?></a></li>
+<?php
+global $localizations;
+global $lang;
+foreach ($localizations as $locale){
+	echo "<li><a href='?lang=$locale'>". \Locale::getDisplayName($locale,$lang) . "</a></li>";
+}
+?>
 		</ul>
-
-
-

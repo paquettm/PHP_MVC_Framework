@@ -1,12 +1,20 @@
 <?php
-
+$localizations = ['en', 'fr_CA'];
 
 //to accept languages from the querystring as follows: mysite.com?lang=fr_CA
 if(isset($_GET['lang'])){ //if there is a language choice in the querystring
 	$lang = $_GET['lang'];//use this language
-	setcookie("lang",$lang); //set a cookie
-}else
-	$lang=(isset($_COOKIE["lang"])?$_COOKIE["lang"]:'en'); //from cookie or default
+}elseif (isset($_COOKIE["lang"])) {//is a cookie was set
+	$lang = $_COOKIE["lang"];//use this language
+}else{//if the browser is requesting a language
+	$lang = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);//use this language
+}
+
+$lang = Locale::lookup($localizations, $lang, true, 'en');
+
+setcookie("lang",$_COOKIE['lang'],1,"/","",true,true); //set the old cookie to expire
+setcookie("lang",$lang,0,"/","",true,true); //set a cookie
+
 //extract the root language from the complete locale to use with strftime
 $rootlang = preg_split('/_/', $lang); $rootlang = (is_array($rootlang)?$rootlang[0]:$rootlang);
 
@@ -15,5 +23,3 @@ $rootlang = preg_split('/_/', $lang); $rootlang = (is_array($rootlang)?$rootlang
 
 bindtextdomain($lang, "locale"); //pointing to the locale folder for the language of choice
 textdomain($lang); //what is the file name to find translations
-
-//for dates, we will use the intl module
