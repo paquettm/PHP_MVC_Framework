@@ -22,4 +22,4 @@ GnuWin32 tools to find files and to extract gettext call keys are required for i
 1. Download and install gettext tools from the main installer at http://gnuwin32.sourceforge.net/packages/gettext.htm
 2. Download and install find utilities from the main installer at http://gnuwin32.sourceforge.net/packages/findutils.htm
 
-You will then be able to run "find ./app/views -iname "*.php" -exec xgettext -j {} ;" to extract all gettext calls in views to a messages.po file in the main project folder.
+You will then be able to run "find ./app/views -type f -exec xgettext -j {} ;" to extract all gettext calls in views to a messages.po file in the main project folder.
