@@ -8,8 +8,6 @@
 			<li><a href='/User/logout'><?= _('Log out') ?></a></li>
 		<?php } ?>
 <?php
-global $localizations;
-global $lang;
 foreach ($localizations as $locale){
 	echo "<li><a href='?lang=$locale'>". \Locale::getDisplayName($locale,$lang) . "</a></li>";
 }
