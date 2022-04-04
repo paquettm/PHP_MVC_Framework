@@ -22,6 +22,9 @@
 		<input type="submit" name='action' value='<?= _('Create!') ?>' class='form-control' />
 	</form>
 		<?php
+			$this->view('client/addressForm');
+		?>
+		<?php
 			$this->view('shared/navigation');
 		?>
 	</div>
