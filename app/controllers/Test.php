@@ -14,5 +14,6 @@ class Test extends \app\core\Controller{
 		foreach ($_POST as $key=>$value){
 			echo "POST: $key => $value\n";
 		}
+		echo "Request received from IP: ", $_SERVER['REMOTE_ADDR'];
 	}
 }
