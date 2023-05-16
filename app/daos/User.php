@@ -16,10 +16,18 @@ class User extends \app\core\DAO{
 		return $STMT->fetch();
 	}
 
-	public static function insert($data){
+	protected static function insert($data){
 		$SQL = 'INSERT INTO user(username,password_hash) VALUES(:username,:password_hash)';
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['username'=>$data->username,'password_hash'=>$data->password_hash]);
+		return self::$_connection->lastInsertId();
+	}
+
+	protected static function update($data){
+		$SQL = 'UPDATE user SET password_hash=:password_hash WHERE username=:username';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['username'=>$data->username,'password_hash'=>$data->password_hash]);
+		return $STMT->rowCount();
 	}
 
 }

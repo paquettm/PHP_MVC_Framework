@@ -34,12 +34,20 @@ class User extends \app\core\Controller{
 		}else{//there is a form submitted
 			$newUser = new \app\models\User();
 			$newUser->username = $_POST['username'];
+			$newUser->password = $_POST['password'];
+			$newUser->password_confirm = $_POST['password_confirm'];
 
 			 if(!$newUser->exists() && $_POST['password'] == $_POST['password_confirm']){
 			 	$newUser->password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-			 	$newUser->insert();
-			 	header('location:/User/index');
+			 	if($newUser->insert()){
+					header('location:/User/index');
+				 }
+				 else
+				 {
+					header('location:/User/register?error=FAIL!');
+				 }
+
 			 }else{
 				$this->view('User/register','The user account with that username already exists.');
 			 }
