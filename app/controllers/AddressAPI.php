@@ -9,8 +9,7 @@ class AddressAPI extends \app\core\Controller{
 	public function inCanadaFromPostal($postal){
 		$postal = substr($postal, 0,3);
 		if(\strlen($postal) == 3){//this is a requirement for this service
-			$addressInfo = new \app\models\AddressAPI();
-			$addressInfoCache = $addressInfo->find($postal);//search cache
+			$addressInfoCache = \app\daos\AddressAPI::find($postal);//search cache
 			if(!$addressInfoCache){ //get and cache if not present
 				$result = \app\core\ExternalData::get('https://api.zippopotam.us/CA/' . $postal);
 				$addressInfo->postal=$postal;

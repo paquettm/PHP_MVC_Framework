@@ -7,10 +7,8 @@ class Main extends \app\core\Controller{
 		$this->view('Main/index');
 	}
 
-
 	public function clock(){
 		$clock = new \DateTime();
 		echo json_encode($clock);
 	}
-
 }

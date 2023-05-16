@@ -4,8 +4,7 @@ namespace app\controllers;
 #[\app\filters\Login]
 class Client extends \app\core\Controller{
 	public function index(){
-		$myClient = new \app\models\Client();
-		$clients = $myClient->getAll();
+		$clients = \app\daos\Client::getAll();
 		$this->view('Client/index',$clients);
 	}
 
@@ -25,8 +24,7 @@ class Client extends \app\core\Controller{
 
 	public function update($client_id){
 		//TODO: update a specific record
-		$client = new \app\models\Client();
-		$client= $client->get($client_id);//get the specific client
+		$client = \app\daos\Client::get($client_id);//get the specific client
 		//TODO: check if the client exists
 		if(!isset($_POST['action'])){
 			//show the view
@@ -42,30 +40,21 @@ class Client extends \app\core\Controller{
 	}
 
 	public function delete($client_id){//TODO: make sure to satisfy the issue for the constraint
-		$client = new \app\models\Client();
-		$client->delete($client_id);
+		\app\daos\Client::delete($client_id);
 		header('location:/Client/index');
 	}
 
 	public function details($client_id){
-		$client = new \app\models\Client();
-		$client= $client->get($client_id);//get the specific client
+		$client = \app\daos\Client::get($client_id);//get the specific client
 		$this->view('Client/details', $client);
 	}
 
 	public function contactInformation(){
 		$fileHandle = fopen('contactInformation.txt', 'r');
-
 		flock($fileHandle, LOCK_SH);
-
 		$jsonData = fread($fileHandle, 1024);
-
 		fclose($fileHandle);
-
 		$dataObj = json_decode($jsonData);
-
 		$this->view('Client/contactInformation', $dataObj);
-
 	}
-
 }

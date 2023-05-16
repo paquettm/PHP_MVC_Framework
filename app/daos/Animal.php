@@ -50,10 +50,10 @@ class Animal extends \app\core\DAO{
 		$STMT->execute(['name'=>$data->name,'dob'=>$data->dob,'animal_id'=>$data->animal_id]);
 	}
 
-	public static function delete($animal_id){
+	public static function delete($data){
 		$SQL = 'DELETE FROM animal WHERE animal_id = :animal_id';
 		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['animal_id'=>$animal_id]);
+		$STMT->execute(['animal_id'=>$data->animal_id]);
 	}
 
 }

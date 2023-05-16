@@ -10,8 +10,7 @@ class User extends \app\core\Controller{
 		if(!isset($_POST['action'])){//there is no form being submitted
 			$this->view('User/login');
 		}else{//there is a form submitted
-			$user = new \app\models\User();
-			$user = $user->get($_POST['username']);
+			$user = \app\daos\User::get($_POST['username']);
 			if($user != false){
 				if(password_verify($_POST['password'],$user->password_hash)){
 					//yay! login - store that state in a session
