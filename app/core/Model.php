@@ -3,12 +3,6 @@ namespace app\core;
 
 class Model{
 
-	protected static $_connection;
-	//connect to the database
-	function __construct(){
-		self::$_connection = DBConnection::getInstance();
-	}
-
 	function isValid(){//aplication of all validators on the object properties
 		$reflection = new \ReflectionObject($this);
 		//find the properties
@@ -24,4 +18,20 @@ class Model{
 		return true;
 	}
 
+	public function __call($method_name, $args){
+		if(!method_exists($this, $method_name)){
+			//forward the call to the Data Access Object
+			$dao_class_name = str_replace(
+				'\\models\\', 
+				'\\daos\\', 
+				get_class($this)
+			);
+			$args[] = $this;
+			if(method_exists($dao_class_name, $method_name)){
+				return $dao_class_name::$method_name(...$args);
+			}else{
+				throw(new \Exception("No method {$method_name}!"));
+			}
+		}
+	}
 }
